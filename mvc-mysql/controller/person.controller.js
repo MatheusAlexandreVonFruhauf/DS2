@@ -46,7 +46,6 @@ module.exports = {
     },
 
     update: (req,res) => {
-    //Atualiza o id do objeto do req.body
         req.body.id = req.params.id;
         repository.update(req.body, (error, result) => {
             if (error) {

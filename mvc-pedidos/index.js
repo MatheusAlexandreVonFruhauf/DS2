@@ -1,21 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const routes = require('./routes');
+const Router = require('./routes');
 const connection = require('./mysql-connection');
-
 const app = express();
-
 app.use(bodyParser.json());
-
-app.use(routes);
-
+app.use(Router);
+//  testa a conexao com o banco de dados
 connection.connect((error) => {
     if (error) {
-        console.error('Deu pau: %s', error.message);
+        console.error('NAO ESTA FUNCIONANDO: %s', error.message);
         return;
     }
-
     const appServer = app.listen(3000, () => {
-        console.log('Applicação está rodando na porta %s', appServer.address().port);
-    });
+        console.log('Aplicação está rodando! Na porta %s', appServer.address().port)
+    });    
+
 });

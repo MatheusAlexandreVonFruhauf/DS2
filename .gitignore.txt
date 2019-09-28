@@ -1,5 +1,4 @@
-mvc-mysql/node_modules
-exercicio01/node_modules
-mvc/node_modules
-operacoes/node_modules
+.gitignore
+
 */node_modules
+*/build

@@ -58,34 +58,32 @@ module.exports = {
             }
 
             //Valida se o id existe no banco
-            for (item of result) {
-
-                let pedido = {
-                    id: item.p_id,
-                    codigo: item.p_codigo,
-                    dtpedido: moment(item.dtpedido).format('YYYY-MM-DD'),
-                    observacao: item.observacao,
-                    cliente: {
-                        id: item.c_id,
-                        codigo: item.c_codigo,
-                        nome: item.c_nome,
-                        email: item.c_email
-                    },
-                    vendedor: {
-                        id: item.v_id,
-                        codigo: item.v_codigo,
-                        nome: item.v_nome,
-                        email: item.v_email
-                    },
-                    itens: item.itens 
-                }
-
-                pedidos.push( pedido );
+            if (! result[0]) {
+                res.status(404).send('not found');
             }
 
-            res.send(pedidos);
-        });
+            let pedido = {
+                id: result[0].p_id,
+                codigo: result[0].p_codigo,
+                dtpedido: moment(result[0].dtpedido).format('YYYY-MM-DD'),
+                observacao: result[0].observacao,
+                cliente: {
+                    id: result[0].c_id,
+                    codigo: result[0].c_codigo,
+                    nome: result[0].c_nome,
+                    email: result[0].c_email
+                },
+                vendedor: {
+                    id: result[0].v_id,
+                    codigo: result[0].v_codigo,
+                    nome: result[0].v_nome,
+                    email: result[0].v_email
+                },
+                itens: result[0].itens 
+            }
 
+            res.send(pedido);
+        });
     },
     update: (req,res) => {
         //Atualizar o id do objeto do req.body
